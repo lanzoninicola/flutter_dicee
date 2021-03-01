@@ -22,36 +22,57 @@ class DicePage extends StatefulWidget {
 }
 
 class _DicePageState extends State<DicePage> {
+  int leftDiceNumber = 1;
+  int rightDiceNumber = 1;
+
+  void handleLaunchingDice() {
+    handleLeftDiceNumber();
+    handleRightDiceNumber();
+  }
+
+  void handleLeftDiceNumber() {
+    setState(() {
+      leftDiceNumber = RandomNumber().newNumber();
+    });
+  }
+
+  void handleRightDiceNumber() {
+    setState(() {
+      rightDiceNumber = RandomNumber().newNumber();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Row(
         children: [
-          Dice(),
-          Dice(),
+          Dice(
+            diceNumber: leftDiceNumber,
+            handleDiceNumber: handleLaunchingDice,
+          ),
+          Dice(
+              diceNumber: rightDiceNumber,
+              handleDiceNumber: handleLaunchingDice),
         ],
       ),
     );
   }
 }
 
-class Dice extends StatefulWidget {
-  @override
-  _DiceState createState() => _DiceState();
-}
+class Dice extends StatelessWidget {
+  final number;
+  final rolling;
 
-class _DiceState extends State<Dice> {
-  int diceNumber = 1;
+  Dice({@required this.number, @required this.rolling});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: TextButton(
             onPressed: () {
-              setState(() {
-                diceNumber = RandomNumber().newNumber();
-              });
+              rolling();
             },
-            child: Image.asset('images/dice$diceNumber.png')));
+            child: Image.asset('images/dice$number.png')));
   }
 }

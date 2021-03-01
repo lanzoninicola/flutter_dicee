@@ -25,7 +25,7 @@ class _DicePageState extends State<DicePage> {
   int leftDiceNumber = 1;
   int rightDiceNumber = 1;
 
-  void handleLaunchingDice() {
+  void rollingDices() {
     handleLeftDiceNumber();
     handleRightDiceNumber();
   }
@@ -48,12 +48,12 @@ class _DicePageState extends State<DicePage> {
       child: Row(
         children: [
           Dice(
-            diceNumber: leftDiceNumber,
-            handleDiceNumber: handleLaunchingDice,
+            number: leftDiceNumber,
+            rolling: rollingDices,
           ),
           Dice(
-              diceNumber: rightDiceNumber,
-              handleDiceNumber: handleLaunchingDice),
+              number: rightDiceNumber,
+              rolling: rollingDices),
         ],
       ),
     );

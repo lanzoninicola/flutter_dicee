@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dicee/random_number.dart';
 
 void main() {
   return runApp(
@@ -15,9 +16,42 @@ void main() {
   );
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  @override
+  _DicePageState createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Row(
+        children: [
+          Dice(),
+          Dice(),
+        ],
+      ),
+    );
+  }
+}
+
+class Dice extends StatefulWidget {
+  @override
+  _DiceState createState() => _DiceState();
+}
+
+class _DiceState extends State<Dice> {
+  int diceNumber = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: TextButton(
+            onPressed: () {
+              setState(() {
+                diceNumber = RandomNumber().newNumber();
+              });
+            },
+            child: Image.asset('images/dice$diceNumber.png')));
   }
 }
